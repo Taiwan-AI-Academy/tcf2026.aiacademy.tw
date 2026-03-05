@@ -225,6 +225,47 @@
                 display: none;
             }
         }
+        /* 外層容器維持 SVG 原始比例 854.5 x 679 */
+        .scene {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            padding-top: calc(90% * 679 / 854.5);
+        }
+
+        .water-layer,
+        .ship-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        /* 水波：左右平移 */
+        .water-layer {
+            animation: wave-drift 6s ease-in-out infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes wave-drift {
+            0%   { transform: translateX(0px) scaleX(1); }
+            30%  { transform: translateX(6px) scaleX(1.01); }
+            70%  { transform: translateX(-5px) scaleX(0.99); }
+            100% { transform: translateX(0px) scaleX(1); }
+        }
+
+        /* 船：上下漂浮 + 微微傾斜 */
+        .ship-layer {
+            animation: float 4s ease-in-out infinite;
+            transform-origin: center 65%;
+        }
+
+        @keyframes float {
+            0%   { transform: translateY(0px)   rotate(0deg); }
+            25%  { transform: translateY(-10px) rotate(0.7deg); }
+            50%  { transform: translateY(-5px)  rotate(0deg); }
+            75%  { transform: translateY(-12px) rotate(-0.7deg); }
+            100% { transform: translateY(0px)   rotate(0deg); }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-prestigeGold selection:text-obsidian">
@@ -325,7 +366,14 @@
                 <!-- Right Column: Ship + Date -->
                 <div class="lg:col-span-3 flex flex-col items-center justify-between gap-4 fade-up delay-200">
                     <!-- Ship Illustration -->
-                    <img src="assets/TC-ship.svg" alt="台灣出海藍圖" class="w-48 md:w-64 lg:w-full max-w-[280px] drop-shadow-2xl">
+                    <div class="scene">
+                        <div class="water-layer">
+                            <img src="assets/TC-ship-water.svg" alt="海洋">
+                        </div>
+                        <div class="ship-layer">
+                            <img src="assets/TC-ship-only.svg" alt="船隻">
+                        </div>
+                    </div>
                     <!-- Date Info -->
                     <div class="text-center lg:text-right w-full">
                         <div class="flex items-baseline justify-center lg:justify-end gap-3">
