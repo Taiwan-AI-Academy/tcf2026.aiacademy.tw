@@ -195,3 +195,10 @@ body {
     75%  { transform: translateY(-12px) rotate(-0.7deg); }
     100% { transform: translateY(0px)   rotate(0deg); }
 }
+
+@media (max-width: 1023.999px) {
+    .scene {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+}
